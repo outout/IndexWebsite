@@ -3,6 +3,7 @@
 	preloader="assets.programmatic.CustomPreloader"
 	preinitialize="OnPreinitialize(event)"
 	initialize="OnInitialize(event)"
+	xmlns:views="com.views.*"
 	xmlns="http://www.degrafa.com/2007"
 	layout="absolute" 
 	>
@@ -21,7 +22,7 @@
             [Embed("assets/icons/A02.swf")]
             private var Btn02:Class;
             [Bindable]
-            [Embed("assets/icons/A03.swf")]
+            [Embed("assets/icons/A02.swf")]
             private var Btn03:Class;
             
             // Dispatched at the beginning of the component initialization sequence.
@@ -49,41 +50,14 @@
 
 	</mx:ApplicationControlBar>
 	<mx:ViewStack   id="PrimarViewstack" left="1" right="1" top="1" bottom="1">
-		<mx:Canvas icon="{Btn01}" toolTip="imagination"   id="View1"   width="100%" height="100%">
-			<mx:Grid horizontalCenter="0" verticalCenter="1">
-				<mx:GridRow width="100%" height="100%">
-					<mx:GridItem width="100%" height="100%">
-						<mx:SWFLoader source="assets/image/BlanckSquare.swf"/>
-					</mx:GridItem>
-					<mx:GridItem width="100%" height="100%">
-						<mx:SWFLoader source="assets/image/BlanckSquare.swf"/>
-					</mx:GridItem>
-					<mx:GridItem width="100%" height="100%">
-						<mx:SWFLoader source="assets/image/BlanckSquare.swf"/>
-					</mx:GridItem>
-				</mx:GridRow>
-				<mx:GridRow width="100%" height="100%">
-					<mx:GridItem width="100%" height="100%">
-						<mx:SWFLoader source="assets/image/BlanckSquare.swf"/>
-					</mx:GridItem>
-					<mx:GridItem width="100%" height="100%">
-						<mx:SWFLoader source="assets/image/BlanckSquare.swf"/>
-					</mx:GridItem>
-					<mx:GridItem width="100%" height="100%">
-						<mx:SWFLoader source="assets/image/BlanckSquare.swf"/>
-					</mx:GridItem>
-				</mx:GridRow>
-			</mx:Grid>
-
-		</mx:Canvas>
-		<mx:Canvas  icon="{Btn02}" id="View2" width="100%" height="100%">
-		</mx:Canvas>
-		<mx:Canvas  icon="{Btn03}" id="View3" width="100%" height="100%">
-		</mx:Canvas>
-		<mx:Canvas  icon="{Btn01}" id="View4" width="100%" height="100%">
-		</mx:Canvas>
-		<mx:Canvas  icon="{Btn01}" id="View5" width="100%" height="100%">
-		</mx:Canvas>
+		
+		<views:Intro    icon="{Btn01}" toolTip="Intro"    id="View1" width="100%" height="100%"/>
+		<views:Current  icon="{Btn02}" toolTip="Current"  id="View2" width="100%" height="100%"/>
+		<views:Album    icon="{Btn03}" toolTip="Album"    id="View3" width="100%" height="100%"/>
+		<views:Upload   icon="{Btn03}" toolTip="Upload"   id="View4" width="100%" height="100%"/>
+		<views:Works    icon="{Btn01}" toolTip="Upload"   id="View5" width="100%" height="100%"/>
+		
+		
 	</mx:ViewStack>
 
 	
