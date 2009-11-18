@@ -106,7 +106,7 @@ BUTTON
 }
 
 
-.buttonOfficial
+Button
 {
 	up-skin:        		Embed("/assets/botones/boton.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
 	over-skin:      		Embed("/assets/botones/boton1.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
@@ -134,173 +134,6 @@ LinkButton
 	color:                  #eeeeee;
 
 
-}
-
-/*
-------------------------------------------------------------------------
-TOGGLE BUTTONS
-------------------------------------------------------------------------
-*/
-
-
-.ToggleButtonBar
-{
-	firstButtonStyleName: 			"buttonPrevievStyle";
-	buttonStyleName: 				"buttonInfoEpresaStyleFirst";
-	lastButtonStyleName: 			"buttonInfoEpresaStyleLast";
-	selectedButtonTextStyleName:	"buttonInfoEpresaStyleSelected";
-	header-height:					21;
-	color:							#ffffff;
-}
-
-
-.buttonPrevievStyle
-/*1 primero*/
-{
-	up-skin:        		Embed("/assets/botones/prev_toggle.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	over-skin:      		Embed("/assets/botones/prev_toggle1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	down-skin:      		Embed("/assets/botones/prev_toggle2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-up-skin:   	Embed("/assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-over-skin: 	Embed("/assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-down-skin: 	Embed("/assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	color:					#333333;
-	text-roll-over-color: 	#333333;
-	text-selected-color:	#000000;
-	font-weight: 			normal;
-	font-family: 			tahoma;
-	padding-left: 			6;
-	padding-right:			6;
-	padding-top:			3;
-}
-
-
-.buttonInfoEpresaStyleFirst
-/*2 medio*/
-{
-	up-skin:        		Embed("/assets/botones/toggle_medio.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	over-skin:      		Embed("/assets/botones/toggle_medio1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	down-skin:      		Embed("/assets/botones/toggle_medio2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-up-skin: 		Embed("/assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-over-skin: 	Embed("/assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-down-skin: 	Embed("/assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	color: 					#333333;
-	text-roll-over-color: 	#333333;
-	text-selected-color: 	#000000;
-	font-weight: 			normal;
-	font-family: 			tahoma;
-	padding-left: 			6;
-	padding-right:			6;
-	padding-top:			3;
-}
-
-
-.buttonInfoEpresaStyleLast 
-/*3 último*/
-{
-	up-skin:        		Embed("/assets/botones/last_toggle.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	over-skin:      		Embed("/assets/botones/last_toggle1.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	down-skin:      		Embed("/assets/botones/last_toggle2.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	selected-up-skin:   	Embed("/assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	selected-over-skin: 	Embed("/assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	selected-down-skin: 	Embed("/assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	color: 					#333333;
-	text-roll-over-color: 	#333333;
-	text-selected-color: 	#000000;
-	font-weight: 			normal;
-	font-family: 			tahoma;
-	padding-left: 			6;
-	padding-right:			6;
-	padding-top:			3;
-}
-
-
-.buttonInfoEpresaStyleSelected
-/*4 color seleccionado*/
-{
-	color: 					#f0f0f0;
-}
-
-
-/*----------------------------------------------------------------------------------------------------------*/
-
-
-.ButtonBar
-{
-	firstButtonStyleName: 			"buttonPrevievStyle";
-	buttonStyleName: 				"buttonInfoEpresaStyleFirst";
-	lastButtonStyleName: 			"buttonInfoEpresaStyleLast";
-	selectedButtonTextStyleName:	"buttonInfoEpresaStyleSelected";
-	header-height:					21;
-	color:							#ffffff;
-}
-
-
-.buttonPrevievStyle
-/*1 primero*/
-{
-	up-skin:        		Embed("/assets/botones/prev_toggle.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	over-skin:      		Embed("/assets/botones/prev_toggle1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	down-skin:      		Embed("/assets/botones/prev_toggle2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-up-skin:   	Embed("/assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-over-skin: 	Embed("/assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-down-skin: 	Embed("/assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	color:					#333333;
-	text-roll-over-color: 	#333333;
-	text-selected-color:	#000000;
-	font-weight: 			normal;
-	font-family: 			tahoma;
-	padding-left: 			6;
-	padding-right:			6;
-	padding-top:			3;
-}
-
-
-.buttonInfoEpresaStyleFirst
-/*2 medio*/
-{
-	up-skin:        		Embed("/assets/botones/toggle_medio.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	over-skin:      		Embed("/assets/botones/toggle_medio1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	down-skin:      		Embed("/assets/botones/toggle_medio2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-up-skin: 		Embed("/assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-over-skin: 	Embed("/assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	selected-down-skin: 	Embed("/assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
-	color: 					#333333;
-	text-roll-over-color: 	#333333;
-	text-selected-color: 	#000000;
-	font-weight: 			normal;
-	font-family: 			tahoma;
-	padding-left: 			6;
-	padding-right:			6;
-	padding-top:			3;
-}
-
-
-.buttonInfoEpresaStyleLast 
-/*3 último*/
-{
-	up-skin:        		Embed("/assets/botones/last_toggle.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	over-skin:      		Embed("/assets/botones/last_toggle1.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	down-skin:      		Embed("/assets/botones/last_toggle2.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	selected-up-skin:   	Embed("/assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	selected-over-skin: 	Embed("/assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	selected-down-skin: 	Embed("/assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
-	color: 					#333333;
-	text-roll-over-color: 	#333333;
-	text-selected-color: 	#000000;
-	font-weight: 			normal;
-	font-family: 			tahoma;
-	padding-left: 			6;
-	padding-right:			6;
-	padding-top:			3;
-}
-
-
-.buttonInfoEpresaStyleSelected
-/*4 color seleccionado*/
-{
-	color: 					#f0f0f0;
-	text-roll-over-color:	#f0f0f0;
-	text-selected-color:	#f0f0f0;
 }
 
 
@@ -976,22 +809,12 @@ ToolTip
 
 
 /*--------------------button set---------------------*/
-Button
-{ cornerRadius: 0;
-   paddingLeft: 0;
-   paddingRight: 0;
-   highlightAlphas: 0, 0;
-   fillAlphas: 1, 1, 1, 1;
-   fillColors: #333333, #333333, #990000, #990000;
-   borderColor: #333333;
-   themeColor: #7c7c7c;
 
-}
 
 
 ToggleButtonBar {
    buttonHeight: 28;
-   buttonWidth: 16;
+   buttonWidth: 28;
    horizontalGap: -1;
    textIndent: 0;
    letterSpacing: 0;
@@ -1003,31 +826,54 @@ ToggleButtonBar {
 
 .mytoggleButtonBarButtonStyle {
    highlightAlphas: 0, 0;
-   fillAlphas: 1, 1, 1, 1;
-   fillColors: #151515, #151515, #ff6600, #ff6600;
+   fillAlphas: 1, 1, 0.5, 0.5;
+   fillColors: #151515, #151515, #990000, #990000;
    color: #000000;
    textRollOverColor: #ffffff;
    textSelectedColor: #333333;
    borderColor: #333333;
    fontFamily: Arial;
    fontSize: 12;
+   cornerRadius: 0;
 }
 
 .mytoggleButtonBarFirstButtonStyle {
-	 cornerRadius: 0;
+   highlightAlphas: 0, 0;
+   fillAlphas: 1, 1, 0.5, 0.5;
+   fillColors: #151515, #151515, #990000, #990000;
+   color: #000000;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #333333;
+   borderColor: #333333;
+   fontFamily: Arial;
+   fontSize: 12;
+   cornerRadius: 0;
 }
 
 .mytoggleButtonBarLastButtonStyle {
-	 cornerRadius: 0;
+   highlightAlphas: 0, 0;
+   fillAlphas: 1, 1, 0.5, 0.5;
+   fillColors: #151515, #151515, #990000, #990000;
+   color: #000000;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #333333;
+   borderColor: #333333;
+   fontFamily: Arial;
+   fontSize: 12;
+   cornerRadius: 0;
 }
 
 .mytoggleButtonBarSelectedButtonStyle {
-   color: #666666;
+   highlightAlphas: 0, 0;
+   fillAlphas: 1, 1, 0.5, 0.5;
+   fillColors: #151515, #151515, #990000, #990000;
+   selected-fill-colors: #999900;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #333333;
+   borderColor: #333333;
+   fontFamily: Arial;
+   fontSize: 12;
+   cornerRadius: 0;
+   color: #999900;
 }
-
-
-
-
-
-
 

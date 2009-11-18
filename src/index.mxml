@@ -44,7 +44,6 @@
 	<mx:ApplicationControlBar  x="78" y="71" dock="true" fillAlphas="[1.0, 1.0]" fillColors="[#272727, #272727]">
 
         <mx:ToggleButtonBar id="Colorizing"
-        	width="131"
         	dataProvider="{PrimarViewstack}" color="#464646" buttonMode="true" useHandCursor="true">
         </mx:ToggleButtonBar>
 

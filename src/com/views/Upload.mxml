@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
 	initialize="initializeApplication();"
+	height="100%" width="100%"
 	>
     <!-- The Application class states property defines the view states.-->
     <mx:Script source="SimpleFlexUploader.as"/>
@@ -52,7 +53,7 @@
 
 
 	<mx:Panel 
-    verticalAlign="top" width="818" height="362" xmlns:com="com.flashdev.file.*">
+    verticalAlign="top" width="818" height="362" xmlns:com="com.flashdev.file.*" horizontalCenter="0" verticalCenter="0">
         <mx:ViewStack id="vs"
             x="0" y="0"
             width="100%" height="100%"
