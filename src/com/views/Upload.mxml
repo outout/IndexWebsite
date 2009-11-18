@@ -1,4 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%">
-	 
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	initialize="initializeApplication();"
+	>
+    <!-- The Application class states property defines the view states.-->
+    <mx:Script source="SimpleFlexUploader.as"/>
+	<mx:Script>
+        <![CDATA[
+        	import mx.controls.Alert;
+            private function onLogin (event:Event):void 
+           {
+           	if (usernameinput.text =="out" && passwordinput.text =="out"){
+           	vs.selectedChild=fileuploadform;
+           	uploadfilesbtn.enabled=true;
+           	}
+            else if (usernameinput.text =="1" && passwordinput.text =="1"){
+           	vs.selectedChild=fileuploadform;
+           	uploadfilesbtn.enabled=true;
+           	}
+           	else 
+           	Alert.show("Wrong data, Please try to type again")
+           }    
+       ]]>
+       
+	</mx:Script>
+ 
+        <mx:states>
+        <mx:State name="Register">
+            <!-- Add a TextInput control to the form. -->           
+            <mx:AddChild relativeTo="{loginForm}" 
+                position="lastChild" 
+                creationPolicy="all">
+                <mx:FormItem id="confirm" label="Confirm:">
+                    <mx:TextInput/>
+                </mx:FormItem>
+            </mx:AddChild>
+            
+            <!-- Set properties on the Panel container and Button control.-->          
+            <mx:SetProperty target="{loginButton}" 
+                name="label" value="Register"/>
+
+            <!-- Remove the existing LinkButton control.-->            
+            
+            <!-- Add a new LinkButton control to change view state 
+                back to the login form.-->          
+            <mx:AddChild relativeTo="{spacer1}" position="before">
+                <mx:LinkButton label="Return to Login" 
+                    click="currentState=''"/>
+            </mx:AddChild>
+        </mx:State>
+       </mx:states>
+
+
+	<mx:Panel 
+    verticalAlign="top" width="818" height="362" xmlns:com="com.flashdev.file.*">
+        <mx:ViewStack id="vs"
+            x="0" y="0"
+            width="100%" height="100%"
+            selectedIndex="0">
+
+            <mx:Canvas backgroundColor="#F3F3F3" width="100%" height="100%" id="loginform">
+                <mx:Text text="Enter Username and Password"
+                    fontWeight="bold"
+                    paddingTop="10" paddingLeft="10" />
+                <mx:Form id="loginForm" x="10" y="36">
+                    <mx:FormItem label="Username:">
+                        <mx:TextInput id="usernameinput"/>
+                    </mx:FormItem>
+                    <mx:FormItem label="Password:">
+                        <mx:TextInput id="passwordinput"/>
+                    </mx:FormItem>
+                </mx:Form>
+                <mx:Button label="Login" id="loginButton" x="227" y="150" click="onLogin(event)"/>
+            </mx:Canvas>
+
+            <mx:Canvas backgroundColor="#F6F6F6" id="fileuploadform">
+
+                    
+                    <mx:HBox id="panelsContainer" 
+                        horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" backgroundColor="#FFFFFF">
+                        
+                        <mx:Panel id="uploadPanel" 
+                            width="70%" height="100%"
+                            borderStyle="solid" roundedBottomCorners="true"
+                            shadowDistance="0" dropShadowEnabled="false">
+                            
+                            <mx:DataGrid id="uploadGrid"
+                                width="100%" height="100%"
+                                tabEnabled="false"
+                                dataProvider="{_fileToUpload}">
+                                
+                                <mx:columns>
+                                    <mx:DataGridColumn dataField="name" 
+                                        headerText="File Name"/>
+                                    <mx:DataGridColumn dataField="size" 
+                                        headerText="Size" width="70"/>
+                                </mx:columns>
+                            </mx:DataGrid>
+                            
+                            <mx:HBox width="100%">
+                                <mx:Button id="browseBtn" label="Browse"
+                                    width="100%" cornerRadius="0" 
+                                    tabEnabled="false" enabled="true"
+                                    click="browseForFile(event);" height="40" fillAlphas="[0.69, 1.0, 0.69, 0.69]" fillColors="[#717171, #535353]" fontSize="15" color="#F5F4F4" borderColor="#171717"/>
+                                <mx:Button id="uploadBtn" label="Upload"
+                                    width="100%" cornerRadius="0" 
+                                    tabEnabled="false" enabled="false"
+                                    click="uploadFileToServer(event);" height="40" fontSize="15"/>
+                            </mx:HBox>
+                        
+                        </mx:Panel>
+                        
+                        <mx:Panel id="fileTypesPanel" 
+                            title="Allowed file types"
+                            width="30%" height="100%"
+                            borderStyle="solid" 
+                            roundedBottomCorners="true"
+                            shadowDistance="0" dropShadowEnabled="false">
+                            
+                            <mx:List id="fileTypesList"
+                                width="100%" height="100%"
+                                tabEnabled="false"
+                                dataProvider="{_fileTypesDescription}"
+                                itemClick="onFileTypeSelect(event);" color="#001317"/>
+                            
+                        </mx:Panel>
+                        
+                    </mx:HBox>
+                    
+                    <mx:Spacer height="5"/>
+                    <mx:ProgressBar id="uploadProgressBar"
+                        minimum="0" maximum="100" mode="manual"
+                        width="{uploadPanel.width + fileTypesPanel.width + 8}"
+                        visible="false"/>
+                    
+            </mx:Canvas>
+
+            <mx:Canvas backgroundColor="#FFFFFF">
+                <mx:Text text="Upload File" fontWeight="bold" paddingTop="10" paddingLeft="10" />
+                <mx:TextArea x="10" y="36" text="1.Type your username and password, and click Login." width="778" height="19"/>
+                <mx:TextArea x="10" y="63" text="2.In file upload page, choose type of uploaded file (Right side)" width="778" height="19"/>
+                <mx:TextArea x="10" y="90" text="2.click on the. Browse Button, select the file you want to upload, and then click on the Upload  Button" width="778" height="19"/>
+                <mx:TextArea x="10" y="117" text="file title instruction: name.surname.jpg-for image, name.surname.txt for staitment" width="778" height="19"/>
+            </mx:Canvas>
+
+		</mx:ViewStack>
+        <mx:ControlBar>
+            <mx:Button label="Login"
+            click="vs.selectedIndex=0" />
+            <mx:Button label="Upload Files" id="uploadfilesbtn"
+            click="vs.selectedIndex=1"   enabled="false"/>
+            <mx:Button label="Help"
+            click="vs.selectedIndex=2" />
+            <!-- Use the LinkButton to change to the Register view state.-->                   
+            <mx:Spacer width="100%" id="spacer1"/>
+        </mx:ControlBar>
+
+
+</mx:Panel>
+
 </mx:Canvas>
