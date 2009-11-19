@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
-	initialize="initializeApplication();"
+	initialize="OnInitialize(event), initializeApplication();"
 	xmlns:commander="com.commander.*"
 	height="100%" width="100%"
 	>
@@ -8,6 +8,7 @@
     <mx:Script source="SimpleFlexUploader.as"/>
 	<mx:Script>
         <![CDATA[
+        	import mx.controls.Image;
         	import mx.controls.Alert;
             private function onLogin (event:Event):void 
            {
@@ -20,6 +21,11 @@
            	else 
            	Alert.show("Wrong data, Please try to type again")
            }    
+                       // Dispatched when the component has finished its construction.
+            // and has all initialization properties set
+            private function OnInitialize(event:Event):void
+            {
+            }
        ]]>
        
 	</mx:Script>
@@ -46,8 +52,8 @@
         </mx:State>
        </mx:states>
 
-        		<mx:LinkBar color="0x0050AA" horizontalAlign="center" width="100%" fontWeight="bold" dataProvider="{myViewStack}"  y="52"/>
-			    <mx:Panel width="900" height="490" layout="absolute" verticalCenter="0" horizontalCenter="0">
+        		<mx:LinkBar color="0x0050AA" horizontalAlign="center" width="100%" fontWeight="bold" dataProvider="{myViewStack}" top="52" horizontalCenter="0"/>
+			    <mx:Panel width="900" height="490" layout="absolute" horizontalCenter="0" top="86">
 			    			    <mx:ViewStack id="myViewStack"
 			    			        width="100%"
 			    			        selectedIndex="0" x="0" top="0" bottom="0">    
@@ -66,64 +72,70 @@
 			    			            <mx:Button label="Login" id="loginButton" x="412" y="195" click="onLogin(event)"/>
 			    			        </mx:Canvas>
 			    			        <mx:Canvas  id="fileuploadform" label="File Upload">
-			    			                <mx:HBox id="panelsContainer" 
-			    			                    horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" backgroundColor="#FFFFFF">
-			    			                    
-			    			                    <mx:Panel id="uploadPanel" 
-			    			                        width="70%" height="100%"
-			    			                        borderStyle="solid" roundedBottomCorners="true"
-			    			                        shadowDistance="0" dropShadowEnabled="false">
-			    			                        
-			    			                        <mx:DataGrid id="uploadGrid"
-			    			                            width="100%" height="100%"
-			    			                            tabEnabled="false"
-			    			                            dataProvider="{_fileToUpload}">
-			    			                            
-			    			                            <mx:columns>
-			    			                                <mx:DataGridColumn dataField="name" 
-			    			                                    headerText="File Name"/>
-			    			                                <mx:DataGridColumn dataField="size" 
-			    			                                    headerText="Size" width="70"/>
-			    			                            </mx:columns>
-			    			                        </mx:DataGrid>
-			    			                        
-			    			                        <mx:HBox width="100%">
-			    			                            <mx:Button id="browseBtn" label="Browse"
-			    			                                width="100%" cornerRadius="0" 
-			    			                                tabEnabled="false" enabled="true"
-			    			                                click="browseForFile(event);" height="40" fillAlphas="[0.69, 1.0, 0.69, 0.69]" fillColors="[#717171, #535353]" fontSize="15" color="#F5F4F4" borderColor="#171717"/>
-			    			                            <mx:Button id="uploadBtn" label="Upload"
-			    			                                width="100%" cornerRadius="0" 
-			    			                                tabEnabled="false" enabled="false"
-			    			                                click="uploadFileToServer(event);" height="40" fontSize="15"/>
-			    			                        </mx:HBox>
-			    			                    
-			    			                    </mx:Panel>
-			    			                    
-			    			                    <mx:Panel id="fileTypesPanel" 
-			    			                        title="Allowed file types"
-			    			                        width="30%" height="100%"
-			    			                        borderStyle="solid" 
-			    			                        roundedBottomCorners="true"
-			    			                        shadowDistance="0" dropShadowEnabled="false">
-			    			                        
-			    			                        <mx:List id="fileTypesList"
-			    			                            width="100%" height="100%"
-			    			                            tabEnabled="false"
-			    			                            dataProvider="{_fileTypesDescription}"
-			    			                            itemClick="onFileTypeSelect(event);" color="#001317"/>
-			    			                        
-			    			                    </mx:Panel>
-			    			                    
-			    			                </mx:HBox>
+
+			    			                    <mx:Grid width="264" height="440" id="uploadPanel">
+			    			                    	<mx:GridRow width="100%" height="30">
+			    			                            <mx:GridItem width="100%" height="20">
+			    			                                <mx:GridItem width="100%" height="23">
+			    			                                    <mx:Text text="File Upload" height="20"/>
+			    			                                </mx:GridItem>
+			    			                            </mx:GridItem>
+			    			                        </mx:GridRow>
+			    			                        <mx:GridRow width="100%" height="30">
+			    			                            <mx:GridItem width="100%" height="20">
+			    			                                <mx:ProgressBar id="uploadProgressBar"
+			    			                                    minimum="0" maximum="100" mode="manual"
+			    			                                    width="100%"
+			    			                                     visible="false"/>
+			    			                            </mx:GridItem>
+			    			                        </mx:GridRow>
+			    			                        <mx:GridRow width="100%" height="20">
+			    			                            <mx:GridItem width="100%" height="23">
+			    			                                <mx:Text text="Allowed file types" height="20"/>
+			    			                            </mx:GridItem>
+			    			                        </mx:GridRow>
+			    			                        <mx:GridRow width="100%" height="100%">
+			    			                            <mx:GridItem width="100%" height="100%">
+			    			                                <mx:List id="fileTypesList"
+			    			                                    width="100%" height="149"
+			    			                                    tabEnabled="false"
+			    			                                    dataProvider="{_fileTypesDescription}"
+			    			                                    itemClick="onFileTypeSelect(event);" color="#001317" selectedIndex="0"/>
+			    			                            </mx:GridItem>
+			    			                        </mx:GridRow>
+			    			                        <mx:GridRow width="100%" height="100%">
+			    			                            <mx:GridItem width="100%" height="100%">
+			    			                                <mx:DataGrid id="uploadGrid"
+			    			                                    width="100%" height="100%"
+			    			                                    tabEnabled="false"
+			    			                                    dataProvider="{_fileToUpload}">
+			    			                                    
+			    			                                    <mx:columns>
+			    			                                        <mx:DataGridColumn dataField="name" 
+			    			                                            headerText="File Name"/>
+			    			                                        <mx:DataGridColumn dataField="size" 
+			    			                                            headerText="Size" width="70"/>
+			    			                                    </mx:columns>
+			    			                                </mx:DataGrid>
+			    			                            </mx:GridItem>
+			    			                        </mx:GridRow>
+			    			                        <mx:GridRow width="100%" height="50">
+			    			                            <mx:GridItem width="100%" height="100%">
+			    			                                <mx:Button id="browseBtn" label="Browse"
+			    			                                    width="100%" cornerRadius="0" 
+			    			                                    tabEnabled="false" enabled="true"
+			    			                                    click="browseForFile(event);" height="40" fillAlphas="[0.69, 1.0, 0.69, 0.69]" fillColors="[#717171, #535353]" fontSize="15" color="#F5F4F4" borderColor="#171717"/>
+			    			                                <mx:Button id="uploadBtn" label="Upload"
+			    			                                    width="100%" cornerRadius="0" 
+			    			                                    tabEnabled="false" enabled="false"
+			    			                                    click="uploadFileToServer(event);" height="40" fontSize="15"/>
+			    			                            </mx:GridItem>
+			    			                        </mx:GridRow>
+			    			                    </mx:Grid>
 			    			                <mx:Spacer height="5"/>
-			    			                <mx:ProgressBar id="uploadProgressBar"
-			    			                    minimum="0" maximum="100" mode="manual"
-			    			                    width="{uploadPanel.width + fileTypesPanel.width + 8}"
-			    			                    visible="false"/>
+			    			                     <commander:grid_sample         toolTip="preview"  id="View2" width="70%" height="100%" label="File Organiser" left="272"/>
 			    			        </mx:Canvas>
 			    			           <commander:file_operations     toolTip="files"    id="View1" width="100%" height="100%" label="File View"/>
-			    			           <commander:grid_sample         toolTip="preview"  id="View2" width="100%" height="100%" label="File Organiser"/>
 			    			           <commander:list_sample         toolTip="grid"    id="View3" width="100%" height="100%" label="File Preview"/>
 			    			    </mx:ViewStack>
 			    </mx:Panel>
