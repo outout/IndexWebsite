@@ -813,8 +813,8 @@ ToolTip
 
 
 ToggleButtonBar {
-   buttonHeight: 28;
-   buttonWidth: 28;
+   buttonHeight: 20;
+   buttonWidth: 20;
    horizontalGap: -1;
    textIndent: 0;
    letterSpacing: 0;
