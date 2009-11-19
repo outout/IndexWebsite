@@ -54,7 +54,7 @@
 		<views:Current  icon="{Btn02}" toolTip="Current"  id="View2" width="100%" height="100%"/>
 		<views:Album    icon="{Btn03}" toolTip="Album"    id="View3" width="100%" height="100%"/>
 		<views:Upload   icon="{Btn03}" toolTip="Upload"   id="View4" width="100%" height="100%"/>
-		<views:Works    icon="{Btn01}" toolTip="Upload"   id="View5" width="100%" height="100%"/>
+		<views:Works    icon="{Btn01}" toolTip="Works"   id="View5" width="100%" height="100%"/>
 		
 		
 	</mx:ViewStack>
