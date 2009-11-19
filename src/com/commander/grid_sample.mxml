@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:filelist="org.flashcommander.filelist.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			
+			function initGrid(){
+				// increase date column width
+				//fileGrid.dateColumn.width += 60;
+				
+				// leave out columns
+				//fileGrid.columns = [fileGrid.iconColumn, fileGrid.nameColumn, fileGrid.extColumn, fileGrid.sizeColumn, fileGrid.dateColumn]
+			}
+					
+			function onFault(event:FaultEvent){
+				Alert.show(event.fault.faultString);
+			}
+			
+			function onFileList(event:ResultEvent){
+				// handle unsuccessful call
+				if (!event.result.valid){
+					Alert.show(event.result.error);
+				}
+			}
+			
+			function setEndpoint(){
+				// connect to a different endpoint
+				fileGrid.endpoint = endpointTxt.text;
+				// load root directory list
+				fileGrid.rootDir = fileGrid.directory = rootTxt.text;
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:VBox width="100%" height="100%"
+		paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5">
+		
+		<mx:Form paddingTop="10" width="100%" borderStyle="solid">
+			<mx:FormItem label="Endpoint" >
+				<mx:TextInput id="endpointTxt" text="{fileGrid.endpoint}" enter="setEndpoint()" />
+			</mx:FormItem>
+			<mx:FormItem label="Root dir" paddingTop="6" direction="horizontal" >
+				<mx:TextInput id="rootTxt" text="{fileGrid.rootDir}" enter="setEndpoint()" />
+				<mx:Button label="Connect" click="setEndpoint()" />
+			</mx:FormItem>
+			
+			<!-- relative path of the displayed directory -->
+			<mx:FormItem label="Directory" direction="horizontal">
+				<mx:TextInput text="{fileGrid.directory}" editable="false"/>
+			</mx:FormItem>
+			
+			<!-- this is calculated from directory based on Root dir -->
+			<mx:FormItem label="shortPath" direction="horizontal">
+				<mx:TextInput text="{fileGrid.shortPath}" editable="false"/>
+			</mx:FormItem>			
+			
+			<mx:FormItem label="Navigation" direction="horizontal">
+				<mx:Button label="Back" enabled="{fileGrid.canNavigateBack}" click="fileGrid.navigateBack()"/>
+				<mx:Button label="Forward" enabled="{fileGrid.canNavigateForward}" click="fileGrid.navigateForward()"/>
+				<mx:Button label="Up" enabled="{fileGrid.canNavigateUp}" click="fileGrid.navigateUp()"/>
+				<mx:Button label="Down" enabled="{fileGrid.canNavigateDown}" click="fileGrid.navigateDown()"/>
+			</mx:FormItem>
+				
+			<mx:FormItem label="Filtering" direction="horizontal">
+				<mx:CheckBox id="parentCb" selected="true" label="parent dir" />
+				<mx:CheckBox id="foldersCb" selected="true" label="folders" />
+				<mx:CheckBox id="filesCb" selected="true" label="files" />
+			</mx:FormItem>
+			
+		</mx:Form>
+		
+		<!-- note that you can set navClick to "double" if you don't want web-style navigation -->
+		<filelist:RemoteFileGrid id="fileGrid" 
+			width="100%" height="100%" creationComplete="initGrid()" 
+			endpoint="http://localhost/index-debug/amfphp/gateway.php"
+			directory="../../../user"
+			fileListResult="onFileList(event)"
+			onFault="onFault(event)"
+			showParentDir="{parentCb.selected}" showFolders="{foldersCb.selected}" showFiles="{filesCb.selected}" 
+			dateFormatString="MMM. D, YYYY"	
+			>
+						
+			
+		</filelist:RemoteFileGrid>
+			
+	</mx:VBox>
+	
+</mx:Canvas>

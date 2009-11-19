@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:filelist="org.flashcommander.filelist.*"  
+	>
+	
+	<mx:Script>
+		<![CDATA[
+		    import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			
+			function onFault(event:FaultEvent){
+				Alert.show(event.fault.faultString);
+			}
+			
+			function onFileList(event:ResultEvent){
+				// handle unsuccessful call
+				if (!event.result.valid){
+					Alert.show(event.result.error);
+				}
+			}
+			
+			// 	When the folder list selection changes 
+			// 	the thumbnailList loads the contents of the selected folder.  
+			// 	The same could be achieved with data binding:
+			//
+			// 	<filelist:RemoteFileHList ... 
+			// 		directory={folderList.directory + "/" + folderList.selectedItem.name} />
+			
+			function loadImages(){
+				var dir:String = folderList.directory + "/" + folderList.selectedItem.name
+				thumbnailList.directory = dir;
+			}
+			
+		]]>
+	</mx:Script>
+
+	<mx:Fade id="fadeIn" alphaFrom="0" alphaTo="1" duration="500"/>
+	
+	<mx:VBox width="100%" height="100%"
+		paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5">
+		
+		<mx:VBox width="100%" height="100%">
+			
+			<mx:HBox width="100%" height="100%">
+			
+			<!-- Keyboard and Mouse handlers are disabled for the list 
+				so that user cannot navigate away -->
+			
+			<filelist:RemoteFileList id="folderList" 
+				width="160" height="100%" 
+				endpoint="http://localhost/index-debug/amfphp/gateway.php"
+				directory="../../../user"
+				fileListResult="onFileList(event)"
+				onFault="onFault(event)" 
+				showFiles="false" showParentDir="false"
+				handleClick="false" handleKey="false"
+				change="loadImages()"
+				/>
+				
+				<mx:VBox width="100%" height="100%"
+					paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10"
+					borderStyle="solid" >
+					
+					<!-- the source of the Image is bound to the selected item of the thumbnailList-->
+					
+					<mx:Image width="100%" height="100%"
+						verticalAlign="middle" horizontalAlign="center" 
+						source="{thumbnailList.selectedItem.url}"
+						completeEffect="{fadeIn}"/>
+				</mx:VBox>
+				
+			</mx:HBox>
+			
+			<!-- only images are shown in this list -->
+			
+			<filelist:RemoteFileHList
+				id="thumbnailList"
+				width="100%" height="100" 
+				endpoint="http://localhost/index-debug/amfphp/gateway.php"
+				fileListResult="onFileList(event)"
+				onFault="onFault(event)"
+				showParentDir="false" showFolders="false" onlyImages="true" 
+				handleKey="false" handleClick="false" 
+				/>
+				
+			
+		</mx:VBox>
+			
+	</mx:VBox>
+	
+</mx:Canvas>

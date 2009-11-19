@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:filelist="org.flashcommander.filelist.*" 
+	creationComplete="sourceGrid=fileGrid1;fileGrid1.setFocus()">
+	
+	<mx:Script>
+		<![CDATA[
+			import dialog.MakeDirDialog;
+			import mx.managers.PopUpManager;
+			import dialog.RenameDialog;
+			import mx.events.FlexEvent;
+			import mx.events.CloseEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			
+			function initGrid(event:FlexEvent){
+				var grid:RemoteFileGrid = event.currentTarget as RemoteFileGrid
+				grid.columns = [grid.iconColumn, grid.nameColumn, grid.extColumn, grid.sizeColumn]
+			}
+			
+			function onFault(event:FaultEvent){
+				Alert.show(event.fault.faultString);
+			}
+			
+			function onFileList(event:ResultEvent){
+				// handle unsuccessful call
+				if (!event.result.valid){
+					Alert.show(event.result.error, "Remote error");
+				}
+			}
+			
+			function setEndpoint(){
+				// connect to a different endpoint
+				fileGrid1.endpoint = endpointTxt.text;
+				// load root directory list
+				fileGrid1.directory = fileGrid1.rootDir = rootTxt.text;
+			}
+			
+			
+			// ********************** FILE OPERATIONS ****************************** // 
+			
+			// reference to the grid that initiated an operation
+			var sourceGrid:RemoteFileGrid;
+			
+			// this is a helper function to get rid of the first row when doing file operations	
+			function getGoodFiles(inArr:Array){
+				var outArr:Array = []
+				for each(var item in inArr) 
+					if (item.type != 1) outArr.push(item);
+				return outArr;
+			}
+			
+			// DELETE
+			
+			var fileArr:Array;
+			
+			function initDelete(){
+				fileArr = getGoodFiles(sourceGrid.selectedItems);
+				if (fileArr.length==0) return;
+				var msg:String = "Do you want to delete " + fileArr.length + " files?"
+				Alert.show(msg, "Delete files", Alert.OK|Alert.CANCEL, this, deleteFiles);
+			}
+			
+			function deleteFiles(event:CloseEvent){
+				if (event.detail== Alert.OK)
+					sourceGrid.deleteFiles(fileArr);
+			}
+
+			// we only need to handle unsuccessful calls
+			function handleRemoteError(event:ResultEvent){
+				if (!event.result.valid){
+					Alert.show(event.result.error, "Remote error");
+				}
+			}
+			
+			// RENAME
+			
+			function initRename(){
+				if (sourceGrid.selectedIndex==-1 || sourceGrid.selectedItem.type==1) return;
+				var mydialog:RenameDialog = RenameDialog(PopUpManager.createPopUp(this, RenameDialog, true))	
+				mydialog.oldName = sourceGrid.selectedItem.name 				
+			}
+			
+			// the rename method expects two folder names, the source path is added by RemoteFileGrid
+			public function renameDir(oldname:String, newname:String){
+				sourceGrid.rename(oldname, newname)
+			}
+			
+			// MAKE DIR
+			
+			function initMakeDir(){
+				if (sourceGrid.selectedIndex==-1 || sourceGrid.selectedItem.type==1) return;
+				var mydialog:MakeDirDialog = MakeDirDialog(PopUpManager.createPopUp(this, MakeDirDialog, true))	
+			}
+			
+			public function makeDir(dirname:String){
+				sourceGrid.makeDir(dirname)
+			}
+			
+			// COPY & MOVE
+			
+			var sourceDir:String;
+			var targetDir:String;
+			var moveFlag:Boolean;
+			
+			function initCopy(move:Boolean){
+				fileArr = getGoodFiles(sourceGrid.selectedItems)
+				if (fileArr.length==0) return;
+				var nr = fileArr.length
+				var operation:String = (move)? "move" : "copy";
+				var sourcePath:String = sourceGrid.shortPath;
+				var targetGrid:RemoteFileGrid = (sourceGrid==fileGrid1) ? fileGrid2 : fileGrid1;
+				var targetPath:String = targetGrid.shortPath;
+				sourceDir = sourceGrid.directory
+				targetDir = targetGrid.directory
+				moveFlag = move
+				var msg:String = "Do you want to " + operation + " " + nr + " files from '" + sourcePath + "' to '" + targetPath +"'?"
+				var title:String = (move) ? "Move files" : "Copy files" ;
+				Alert.show(msg, title, Alert.OK|Alert.CANCEL, this, copyHandler);
+			}
+			
+			function copyHandler(event:CloseEvent){
+				if (event.detail==Alert.CANCEL) return;
+				// the coyFiles method expects a newname field for each file - this can be used for renaming.
+				for each(var item in fileArr)
+					item.newname = item.name;
+				sourceGrid.copyFiles(sourceDir, targetDir, fileArr, moveFlag);
+			}
+			
+			function copyResult(event:ResultEvent){
+				if (!event.result.valid){
+					Alert.show( event.result.error, "Remote error", Alert.OK, this, null, null, Alert.OK );
+					return;
+				}
+				
+				// The source grid is automatically refreshed so we only have to refresh the target grid. 
+				// We use the targetlist field of the result object to refresh the target grid
+				
+				var targetGrid:RemoteFileGrid = (sourceGrid==fileGrid1) ? fileGrid2 : fileGrid1;
+				if (event.result.targetlist.path == targetGrid.directory ){
+					targetGrid.fileList = event.result.targetlist;
+				}
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:VBox width="100%" height="100%"
+		paddingLeft="5" paddingBottom="5" paddingRight="5" paddingTop="5">
+		
+		<mx:Form paddingTop="10" width="100%" borderStyle="solid" >
+			<mx:FormItem label="Endpoint" >
+				<mx:TextInput id="endpointTxt" text="{fileGrid1.endpoint}" enter="setEndpoint()" />
+			</mx:FormItem>
+			
+			<mx:FormItem label="Directory" direction="horizontal" >
+				<mx:TextInput id="rootTxt" text="{fileGrid1.directory}" enter="setEndpoint()" />
+				<mx:Button label="Connect" click="setEndpoint()" />
+			</mx:FormItem>
+				
+			<mx:FormItem label="File operations" direction="horizontal">
+				<mx:Button label="Delete" click="initDelete()" />
+				<mx:Button label="Rename" click="initRename()" />
+				<mx:Button label="New folder" click="initMakeDir()" />
+				<mx:Button label="Copy" click="initCopy(false)" />
+				<mx:Button label="Move" click="initCopy(true)" />
+			</mx:FormItem>			
+		</mx:Form>
+		
+		<mx:HBox width="100%" height="100%" horizontalGap="2">
+		
+			<filelist:RemoteFileGrid id="fileGrid1" 
+				width="100%" height="100%" 
+				endpoint="http://localhost/index-debug/amfphp/gateway.php"
+				directory="../../../user"
+				creationComplete="initGrid(event)"
+				focusIn="sourceGrid=fileGrid1"
+				onFault="onFault(event)" 
+				fileListResult="onFileList(event)"
+				deleteResult="handleRemoteError(event)"
+				makeDirResult="handleRemoteError(event)"
+				copyResult="copyResult(event)"
+				/>
+				
+			<filelist:RemoteFileGrid id="fileGrid2" 
+				width="100%" height="100%" 
+				endpoint="http://localhost/index-debug/amfphp/gateway.php"
+				directory="../../../user"
+				creationComplete="initGrid(event)"
+				focusIn="sourceGrid=fileGrid2" 
+				onFault="onFault(event)" 
+				fileListResult="onFileList(event)"
+				deleteResult="handleRemoteError(event)" 
+				makeDirResult="handleRemoteError(event)" 
+				copyResult="copyResult(event)"
+				/>
+				
+		</mx:HBox>
+			
+	</mx:VBox>
+	
+</mx:Canvas>

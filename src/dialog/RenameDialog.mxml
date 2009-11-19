@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:classes="classes.*" xmlns:dialog="dialog.*" 
+	creationComplete="doInit();"
+	title="Rename" 	xmlns:view="view.*" >
+    <mx:Script>
+        <![CDATA[
+        	import mx.core.Application;
+
+            import mx.managers.PopUpManager;
+            import mx.managers.CursorManager;
+            import mx.controls.Alert;
+            import mx.events.ValidationResultEvent;
+			
+			public var app:Object = Application.application as Object;            
+			
+            [Bindable]
+            public var oldName:String;
+			
+            private function doInit():void {
+                PopUpManager.centerPopUp(this);
+                newname.setFocus();
+            }
+
+            private function renameDir(){
+           		app.renameDir(oldname.text,newname.text);
+           		PopUpManager.removePopUp(this)
+            }
+            
+        ]]>
+    </mx:Script>
+    
+    <mx:Form defaultButton="{okBtn}" >
+        <mx:FormItem label="Old name"  >
+            <mx:TextInput id="oldname" text="{oldName}" enabled="false"/>
+        </mx:FormItem> 
+        <mx:FormItem label="New name">
+            <mx:TextInput id="newname" text="{oldName}"/>
+        </mx:FormItem> 
+        <mx:FormItem>
+		    <mx:HBox > 
+		        <mx:Button click="renameDir()" label="OK" id="okBtn"  styleName="dialogBtn"/> 
+		        <mx:Button click="PopUpManager.removePopUp(this);" label="Cancel"  styleName="dialogBtn"/> 
+		    </mx:HBox> 
+        </mx:FormItem>
+    </mx:Form>
+</mx:TitleWindow>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:classes="classes.*"  xmlns:view="view.*" xmlns:dialog="dialog.*" 
+	title="Create new directory"  creationComplete="doInit();">
+    <mx:Script>
+        <![CDATA[
+        	import mx.core.Application;
+
+            import mx.managers.PopUpManager;
+            import mx.managers.CursorManager;
+            import mx.controls.Alert;
+            import mx.events.ValidationResultEvent;
+            
+            public var app:Object = Application.application as Object;
+            
+            private function doInit():void {
+                PopUpManager.centerPopUp(this);
+                dir.setFocus();
+            }
+            
+            private function makeDir(){
+           		app.makeDir(dir.text);
+           		PopUpManager.removePopUp(this)
+            }
+            
+            
+        ]]>
+    </mx:Script>
+    
+	    
+    <mx:Form defaultButton="{okBtn}" >
+        <mx:FormItem label="Directory name">
+            <mx:TextInput id="dir" />
+        </mx:FormItem> 
+        <mx:FormItem>
+		    <mx:HBox > 
+		        <mx:Button click="makeDir()" label="OK" id="okBtn"  styleName="dialogBtn"/> 
+		        <mx:Button click="PopUpManager.removePopUp(this);" label="Cancel"  styleName="dialogBtn"/> 
+		    </mx:HBox> 
+        </mx:FormItem>
+    </mx:Form>
+</mx:TitleWindow>
+

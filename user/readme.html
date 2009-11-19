@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Flashcommander Library 1.0</title>
+
+<style type="text/css">
+	body {
+		background-color: #efefef;
+		margin: 0;
+		padding: 20px;	
+		font-size: 12px; 
+		font-family: Verdana, Tahoma, sans-serif;
+	}
+		
+</style>
+
+</head>
+<body>
+
+<h2>Flashcommander Library 1.0</h2>
+
+<h3>RemoteFileList components</h3>
+
+<p>
+The RemoteFileList components can be used to browse a remote file system.
+<br/><br/>
+The four components - <b>RemoteFileGrid, RemoteFileTile, RemoteFileList, RemoteFileHList</b> - extend list based components 
+with properties and methods that allow navigation and file operations.
+<br/><br/>
+The server side code is an <b>amfphp</b> class placed in <b>amfphp/services/flashcommander_lib_1_0/FileList</b>.
+</p>
+
+<h4>Usage</h4>
+
+<p>
+You can simply import the downloaded files as a Flex project.<br/>
+If you create a new Flex project you have to add <b>libs/remotefilelist.swc</b> to the build path.
+<br/> 
+To do this open "Project properties/Flex Build path" and on the "Library path" tab add remotefilelist.swc to the project.
+<br/><br/> 
+
+The php code is in the amfphp folder - copy this folder to your webserver.<br/>
+The <b>endpoint</b> of a RemoteFileList should point to amfphp/gateway.php.<br/>
+You also have to specify a <b>directory</b> to display - this is a relative path from amfphp/services/flashcommander_lib folder.
+<br/><br/>
+
+For more info check the <b>sample applications</b> (bin folder) and the <b>asdoc</b> (doc folder).<br/>
+
+</p>
+
+<h4>License</h4>
+<p>
+You can use the components for free.<br/>
+However if you want to remove branding you need to pay a license fee.<br/><br/>
+For details go to <a href="http://flashcommander.org" target="_blank">http://flashcommander.org</a>
+</p>
+
+</body>
+</html>

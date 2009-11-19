@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <directory>
+    <name>tájképek</name>
+    <description />
+    <date>2007.04.26.</date>
+  </directory>
+  <subdirs>
+    <dir>london</dir>
+    <dir>as</dir>
+    <dir>hehe</dir>
+    <dir>cat</dir>
+    <dir>asd</dir>
+    <dir>ver</dir>
+  </subdirs>
+</root>
