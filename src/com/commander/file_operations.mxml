@@ -14,16 +14,16 @@
 			import mx.controls.Alert;
 			import mx.rpc.events.FaultEvent;
 			
-			function initGrid(event:FlexEvent){
+			function  initGrid(event:FlexEvent):void{
 				var grid:RemoteFileGrid = event.currentTarget as RemoteFileGrid
 				grid.columns = [grid.iconColumn, grid.nameColumn, grid.extColumn, grid.sizeColumn]
 			}
 			
-			function onFault(event:FaultEvent){
+			function onFault(event:FaultEvent):void{
 				Alert.show(event.fault.faultString);
 			}
 			
-			function onFileList(event:ResultEvent){
+			function  onFileList(event:ResultEvent):void{
 				// handle unsuccessful call
 				if (!event.result.valid){
 					Alert.show(event.result.error, "Remote error");
@@ -120,7 +120,7 @@
 				Alert.show(msg, title, Alert.OK|Alert.CANCEL, this, copyHandler);
 			}
 			
-			function copyHandler(event:CloseEvent){
+			function  copyHandler(event:CloseEvent){
 				if (event.detail==Alert.CANCEL) return;
 				// the coyFiles method expects a newname field for each file - this can be used for renaming.
 				for each(var item in fileArr)

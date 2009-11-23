@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- http://blog.flexexamples.com/2008/02/15/creating-a-simple-image-gallery-with-the-flex-horizontallist-control/ -->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		horizontalAlign="center"
+		verticalAlign="middle">
+
+	<mx:Image source="{data.@thumbnailImage}" />
+
+	<mx:Label text="{data.@title}" />
+
+</mx:VBox>

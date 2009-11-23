@@ -4,7 +4,6 @@
 	preinitialize="OnPreinitialize(event)"
 	initialize="OnInitialize(event)"
 	xmlns:views="com.views.*"
-	xmlns="http://www.degrafa.com/2007"
 	layout="absolute" 
 	>
 	

@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="600">	
-	
+<mx:WipeDown id="image_addedEffect" startDelay="100" />
+	<mx:Parallel id="image_removedEffect">
+		<mx:Zoom />
+		<mx:Fade />
+	</mx:Parallel>
+
+	<mx:XML id="xml" source="gallery.xml" />
+	<mx:XMLListCollection id="xmlListColl" source="{xml.image}" />
+	<mx:Panel title="{horizontalList.selectedItem.@title}"
+			horizontalAlign="center" horizontalCenter="0" top="50" bottom="50">
+		<mx:Image id="img"
+				source="{horizontalList.selectedItem.@fullImage}"
+				maintainAspectRatio="true"
+				horizontalAlign="center"
+				width="{horizontalList.width}"
+				height="100%" />
+		<mx:ControlBar horizontalAlign="center">
+			<mx:HorizontalList id="horizontalList"
+
+					iconField="thumbnailImage"
+					dataProvider="{xmlListColl}"
+					itemRenderer="CustomItemRenderer"
+					columnCount="4"
+					rowCount="2"
+					rowHeight="100"
+					horizontalScrollPolicy="on" columnWidth="120"/>
+		</mx:ControlBar>
+	</mx:Panel>	
 </mx:Canvas>
