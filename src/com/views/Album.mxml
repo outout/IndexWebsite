@@ -6,7 +6,7 @@
 		<mx:Fade />
 	</mx:Parallel>
 
-	<mx:XML id="xml" source="gallery.xml" />
+	<mx:XML id="xml" source="http://localhost/index-debug/gallery.xml" />
 	<mx:XMLListCollection id="xmlListColl" source="{xml.image}" />
 	<mx:Panel title="{horizontalList.selectedItem.@title}"
 			horizontalAlign="center" horizontalCenter="0" top="50" bottom="50">

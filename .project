@@ -19,7 +19,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<location>C:/xampplite/htdocs/index-debug</location>
+			<location>C:/xampp/htdocs/index-debug</location>
 		</link>
 	</linkedResources>
 </projectDescription>
